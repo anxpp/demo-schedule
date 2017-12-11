@@ -12,12 +12,24 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 public abstract class AbstractTask implements Runnable {
 
+    /**
+     * 任务数据
+     */
     private TaskData data;
 
+    /**
+     * 重试机制
+     */
     private Retry retry = new DefaultRetry();
 
+    /**
+     * 执行器
+     */
     private ScheduleExecutor scheduleExecutor = ScheduleExecutor.instance();
 
+    /**
+     * 任务是否首次运行（防止重试时 key 冲突）
+     */
     private boolean runFirst = true;
 
     // 执行任务 由子类实现

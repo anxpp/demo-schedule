@@ -43,6 +43,7 @@ public class NotifyTask extends AbstractTask {
                     .build();
             Response response = client.newCall(request).execute();
             log.info(((Data) getData()).notifyUrl + "（" + getRetry().times() + "）：" + response.code() + "--" + ScheduleExecutor.instance().getTasks().size() + "--" + ScheduleExecutor.instance().getFailedTasks().size());
+            response.body().close();
         } catch (Exception e) {
             log.info(((Data) getData()).notifyUrl + "（" + getRetry().times() + "）：" + e.getLocalizedMessage() + "--" + ScheduleExecutor.instance().getTasks().size() + "--" + ScheduleExecutor.instance().getFailedTasks().size());
             return false;
